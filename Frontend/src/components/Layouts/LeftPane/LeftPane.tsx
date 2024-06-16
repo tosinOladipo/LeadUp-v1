@@ -1,7 +1,16 @@
+import SideNav from "../SideNav/SideNav"
+
+
+export const Logo = () => {
+    return <div className="logo w-full text-center text-base font-bold text-white px-4 py-6">LeadUp</div>
+}
 
 const LeftPane = () => {
   return (
-    <section className="w-80 h-full bg-blue-950 fixed"></section>
+    <section className="w-80 h-full bg-blue-900 fixed px-6">
+        <Logo/>
+        <SideNav/>
+    </section>
   )
 }
 
