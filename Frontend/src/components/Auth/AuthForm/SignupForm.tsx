@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
 
+
   const [companyName, setCompanyName] = useState('');
   const [companyEmail, setCompanyEmail] = useState('');
   const [companyPhoneNumber, setCompanyPhoneNumber] = useState('');
