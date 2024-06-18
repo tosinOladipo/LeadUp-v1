@@ -3,7 +3,7 @@ const Header = () => {
     <header>
       <div className="navbar bg-base-100 flex py-4 px-4">
         <div className="flex-1">
-          <a className="text-xl">Dashboard</a>
+          <a className="text-xl font-semibold">Dashboard</a>
         </div>
         <div className="flex-none gap-2">
           <div className="form-control">

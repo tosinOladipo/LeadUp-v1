@@ -6,11 +6,11 @@ import { BiListPlus } from "react-icons/bi";
 
 const SideNav = () => {
     return (
-        <ul className="menu mt-10 bg-blue-950 w-full py-4 rounded-lg">
-            <Nav navTitle="Home" navIcon= {<BiHomeAlt2/>} navURL="/home"/>
-            <Nav navTitle="Member" navIcon= {<BiUser/>} navURL="/home"/>
-            <Nav navTitle="Campaign" navIcon= {<BiPaperPlane/>} navURL="/home"/>
-            <Nav navTitle="Leads" navIcon= {<BiListPlus/>} navURL="/home"/>
+        <ul className="menu mt-8 bg-blue-950 w-full py-4 rounded-2xl">
+            <Nav navTitle="Home" navIcon= {<BiHomeAlt2 size={16}/>} navURL="/home"/>
+            <Nav navTitle="Member" navIcon= {<BiUser size={16}/>} navURL="/home"/>
+            <Nav navTitle="Campaign" navIcon= {<BiPaperPlane size={16}/>} navURL="/home"/>
+            <Nav navTitle="Leads" navIcon= {<BiListPlus size={20}/>} navURL="/home"/>
         </ul>
     )
 }

@@ -2,7 +2,7 @@ import SideNav from "../SideNav/SideNav"
 
 
 export const Logo = () => {
-    return <div className="logo w-full text-center text-base font-bold text-white px-4 py-6">LeadUp</div>
+    return <div className="logo w-full text-center text-xl font-bold text-white px-4 mt-1 py-6">LeadUp</div>
 }
 
 const LeftPane = () => {

@@ -10,3 +10,12 @@ body {
     font-size: 12px;
     font-family: 'Poppins', Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
   }
+
+  .overflow-wrap {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+ .overflow-section {
+  width: 1500px;
+ } 
