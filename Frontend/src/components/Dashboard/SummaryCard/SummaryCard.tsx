@@ -10,7 +10,7 @@ const SummaryCard = ({cardTitle, cardStat, cardTimeline, icon }: ISummaryCardPro
     return (
         <div className="stats shadow w-64 bg-white">
             <div className="stat">
-                <div className="stat-figure text-primary text-blue-950">
+                <div className="stat-figuretext-blue-950">
                     {icon}
                 </div>
                 <div className="stat-title text-sm mb-2 text-blue-950">{cardTitle}</div>
