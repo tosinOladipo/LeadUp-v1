@@ -3,9 +3,18 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useDispatch } from 'react-redux';
+import { useLoginMutation } from "../../../slice/ApiSlice/AuthApiSlice";
+import { setCredentials } from '../../../slice/AppSlice/AuthSlice';
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [loginUser, { isLoading }] = useLoginMutation();  
 
 const schema = z.object({
   email: z.string().email(),
@@ -21,7 +30,7 @@ const {
   formState:{errors, isSubmitting},
 } = useForm<FormFields>({
   defaultValues: {
-    email: "oxxo@mail.com"
+    email: ""
   },
   resolver:zodResolver(schema)
 })
@@ -29,7 +38,9 @@ const {
 
 const onSubmit : SubmitHandler<FormFields> = async (data) => {
   try {
-    console.log(data)
+    const res = await loginUser(data).unwrap();
+            dispatch(setCredentials({ ...res }));
+            navigate('/');
   } catch (error) {
     setError("root", {
       message: "Invalid email and password"
@@ -40,7 +51,7 @@ const onSubmit : SubmitHandler<FormFields> = async (data) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {errors.root && (
-      <p>{errors.root.message}</p>
+      <p className="text-red-500">{errors.root.message}</p>
     )}
     <div className="input-container flex flex-col gap-3">
 
@@ -53,7 +64,7 @@ const onSubmit : SubmitHandler<FormFields> = async (data) => {
       />
     </label>
     {errors.email && (
-      <p>{errors.email.message}</p>
+      <p className="text-red-500">{errors.email.message}</p>
     )}
 
     <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
@@ -67,6 +78,8 @@ const onSubmit : SubmitHandler<FormFields> = async (data) => {
     {errors.password && (
       <p>{errors.password.message}</p>
     )}
+
+{isLoading && <p>Loading...</p>}
 
     <div className="input-action">
     <button disabled={isSubmitting} type="submit" className="btn btn-primary">

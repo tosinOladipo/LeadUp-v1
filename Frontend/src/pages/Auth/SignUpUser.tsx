@@ -1,5 +1,5 @@
 import AuthFormContainer from "../../components/Auth/AuthForm/AuthFormContainer"
-import SignupForm from "../../components/Auth/AuthForm/SignupForm"
+import SignUpUserForm from "../../components/Auth/AuthForm/SignUpUserForm"
 import AuthLayout from "../../components/Auth/AuthLayout"
 
 
@@ -7,7 +7,7 @@ const SignUpUser = () => {
   return (
     <AuthLayout>
         <AuthFormContainer formTitle="Complete your registration">
-            <SignupForm/>
+            <SignUpUserForm/>
         </AuthFormContainer>
     </AuthLayout>
   )

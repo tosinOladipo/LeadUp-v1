@@ -3,133 +3,148 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSelector } from 'react-redux';
+import { useRegisterMutation } from "../../../slice/ApiSlice/AuthApiSlice";
+import { useNavigate } from "react-router-dom";
 
 
-const LoginForm = () => {
 
-const schema = z.object({  
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string().email(),
-  phoneNumber: z.string(),
-  password: z.string().min(6),
-  role: z.string()
-})
+const SignUpUserForm = () => {
 
-type FormFields = z.infer<typeof schema>
+    const { companyInfo } = useSelector((state: any) => state.company);
 
-const {
-  register,
-  handleSubmit,
-  setError,
-  formState:{errors, isSubmitting},
-} = useForm<FormFields>({
-  defaultValues: {
-    email: "oxxo@mail.com",
-    role: "super-admin"
-  },
-  resolver:zodResolver(schema)
-})
+    const navigate = useNavigate();
+
+    const [addUser, { isLoading }] = useRegisterMutation();
 
 
-const onSubmit : SubmitHandler<FormFields> = async (data) => {
-  try {
-    console.log(data)
-  } catch (error) {
-    setError("root", {
-      message: "Invalid email and password"
+    const schema = z.object({
+        firstName: z.string().min(1, 'Firstname is required'),
+        lastName: z.string().min(1, 'Lastname is required'),
+        email: z.string().email(),
+        phoneNumber: z.string().min(1, 'Phonenumber is required'),
+        password: z.string().min(6, 'Password must contain at least 6 characters'),
+        role: z.string()
     })
-  }
-}
 
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {errors.root && (
-      <p>{errors.root.message}</p>
-    )}
-    <div className="input-container flex flex-col gap-3">
+    type FormFields = z.infer<typeof schema>
 
-    <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
-    <MdEmail />
-      <input 
-      {...register("firstName")}
-      type="text" 
-      className="grow" 
-      />
-    </label>
-    {errors.firstName && (
-      <p>{errors.firstName.message}</p>
-    )}
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors, isSubmitting },
+    } = useForm<FormFields>({
+        defaultValues: {
+            email: companyInfo.companyEmail,
+            role: "super-admin"
+        },
+        resolver: zodResolver(schema)
+    })
 
-    <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
-    <MdEmail />
-      <input 
-      {...register("lastName")}
-      type="text" 
-      className="grow" 
-      />
-    </label>
-    {errors.lastName && (
-      <p>{errors.lastName.message}</p>
-    )}    
 
-    <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
-    <MdEmail />
-      <input 
-      {...register("email")}
-      type="email" 
-      className="grow" 
-      />
-    </label>
-    {errors.email && (
-      <p>{errors.email.message}</p>
-    )}
+    const onSubmit: SubmitHandler<FormFields> = async (data) => {
+        try {
+            await addUser(data).unwrap();
+            navigate('/auth');
+        } catch (error) {
+            setError("root", {
+                message: "Something went wrong: Unable to add user"
+            })
+        }
+    }
 
-<label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
-    <MdEmail />
-      <input 
-      {...register("phoneNumber")}
-      type="text" 
-      className="grow" 
-      />
-    </label>
-    {errors.phoneNumber && (
-      <p>{errors.phoneNumber.message}</p>
-    )}
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            {errors.root && (
+                <p className="text-red-500">{errors.root.message}</p>
+            )}
+            <div className="input-container flex flex-col gap-3">
 
-    <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
-    <RiLockPasswordFill />
-    <input 
-      {...register("password")}
-      type="password" 
-      className="grow" 
-      />
-    </label>
-    {errors.password && (
-      <p>{errors.password.message}</p>
-    )}
+                <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
+                    <input
+                        {...register("firstName")}
+                        type="text"
+                        className="grow"
+                        placeholder="Firstname"
+                    />
+                </label>
+                {errors.firstName && (
+                    <p className="text-red-500">{errors.firstName.message}</p>
+                )}
 
-<label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
-    <MdEmail />
-      <input 
-      {...register("role")}
-      type="text" 
-      className="grow" 
-      />
-    </label>
-    {errors.role && (
-      <p>{errors.role.message}</p>
-    )}
+                <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
+                    <input
+                        {...register("lastName")}
+                        type="text"
+                        className="grow"
+                        placeholder="Lastname"
+                    />
+                </label>
+                {errors.lastName && (
+                    <p className="text-red-500">{errors.lastName.message}</p>
+                )}
 
-    <div className="input-action">
-    <button disabled={isSubmitting} type="submit" className="btn btn-primary">
-        {isSubmitting ? "Loading..." : "Login"}
-    </button>
-    </div>
-  </div>
-  </form>
-  
-  );
+                <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
+                    <MdEmail />
+                    <input
+                        {...register("email")}
+                        type="email"
+                        disabled
+                        className="grow"
+                    />
+                </label>
+                {errors.email && (
+                    <p>{errors.email.message}</p>
+                )}
+
+                <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
+                    <input
+                        {...register("phoneNumber")}
+                        type="text"
+                        className="grow"
+                        placeholder="Phone number"
+                    />
+                </label>
+                {errors.phoneNumber && (
+                    <p className="text-red-500">{errors.phoneNumber.message}</p>
+                )}
+
+                <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
+                    <RiLockPasswordFill />
+                    <input
+                        {...register("password")}
+                        type="password"
+                        className="grow"
+                    />
+                </label>
+                {errors.password && (
+                    <p className="text-red-500">{errors.password.message}</p>
+                )}
+
+                <label className="input input-bordered flex items-center gap-2 py-3 px-3 border rounded-md">
+                    <input
+                        {...register("role")}
+                        type="text"
+                        disabled
+                        className="grow"
+                    />
+                </label>
+                {errors.role && (
+                    <p>{errors.role.message}</p>
+                )}
+
+                {isLoading && <p>Loading...</p>}
+
+                <div className="input-action">
+                    <button disabled={isSubmitting} type="submit" className="btn btn-primary">
+                        {isSubmitting ? "Loading..." : "Register"}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    );
 };
 
-export default LoginForm;
+export default SignUpUserForm;
