@@ -14,6 +14,7 @@ import Dashboard from './pages/Dashboard/Dashboard.tsx';
 import Signup from './pages/Auth/Signup.tsx';
 import Login from './pages/Auth/Login.tsx';
 import SignUpUser from './pages/Auth/SignUpUser.tsx';
+import Members from './pages/Members/Members.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route path='/auth/signup' element={<Signup/>} />
       <Route path='/register' element={<SignUpUser/>} />
       <Route path='/auth' element={<Login/>} />
+      <Route path='/members' element={<Members/>} />
     </Route>
   )
 );

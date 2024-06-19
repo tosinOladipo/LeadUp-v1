@@ -5,7 +5,7 @@ const UnitSold = () => {
   return (
     <div className="card w-96 bg-white shadow-xl">
   <div className="card-body">
-    <h2 className="card-title text-base">Units sold by marketers</h2>
+    <h2 className="card-title text-base text-gray-800">Units sold by marketers</h2>
     <div className="flex flex-col gap-2">
         <div className="flex gap-4">
             <Avatar avatar="https://img.daisyui.com/tailwind-css-component-profile-3@56w.png"/><ProgressBar marketer="Amaka" unit={4}/>
