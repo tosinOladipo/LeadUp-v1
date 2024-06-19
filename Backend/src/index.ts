@@ -8,6 +8,7 @@ import cors from "cors";
 import { notFound, errorHandler } from './middleware/errorMiddleware'
 import { companyRouter } from './routes/companyRoute'
 import { userRouter } from './routes/userRoute'
+import { roleRouter } from "./routes/roleRoute";
 
 
 const app = express()
@@ -29,6 +30,9 @@ app.get('/', (req, res) => res.send('Hello World'))
 //Router middleware
 app.use('/api/v1/company', companyRouter)
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/roles', roleRouter)
+
+
 
 
 //Error Middleware
