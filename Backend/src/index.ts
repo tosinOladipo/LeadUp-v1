@@ -23,6 +23,8 @@ const corsOptions ={
 
  app.use(cors(corsOptions)) // Use this after the variable declaration
 
+ app.use(cookieParser());
+
 //Test server route
 app.get('/', (req, res) => res.send('Hello World'))
 

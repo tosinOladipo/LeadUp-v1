@@ -1,6 +1,10 @@
+import { useGetAllUserQuery } from "../../../slice/ApiSlice/AuthApiSlice";
 import MemberTableRow from "./MemberTableRow"
 
 const MembersTable = () => {
+
+    const { data, isSuccess } = useGetAllUserQuery();
+
     return (
         <div className="h-96 overflow-x-auto overflow-y-auto">
             <table className="table">
@@ -19,23 +23,23 @@ const MembersTable = () => {
                     </tr>
                 </thead>
                 <tbody className="pb-4">
-                    <MemberTableRow
-                        profileImg="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
-                        firstName="Banky Dave"
-                        lastName="Banky Dave"
-                        phoneNumber="0900000000"
-                        email="banky@mail.com"
-                        role="Marketing"
-                    />
+                    {isSuccess && (
+                        <>
+                        {data?.map((user: any) => (
+                            <MemberTableRow
+                            key={user.id}
+                            profileImg={user.profileImg}
+                            firstName={user.firstName}
+                            lastName={user.lastName}
+                            phoneNumber={user.phoneNumber}
+                            email={user.email}
+                            role={user.role}
+                        />
+                        ))}
+                    </>
+                    )}
+                    
 
-                    <MemberTableRow
-                        profileImg="https://img.daisyui.com/tailwind-css-component-profile-2@56w.png"
-                        firstName="Banky Dave"
-                        lastName="Banky Dave"
-                        phoneNumber="0900000000"
-                        email="banky@mail.com"
-                        role="Marketing"
-                    />
 
                 </tbody>
             </table>

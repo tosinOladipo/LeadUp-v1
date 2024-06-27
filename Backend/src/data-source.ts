@@ -3,6 +3,8 @@ import { DataSource } from "typeorm"
 import { Company } from "./entity/Company"
 import { User } from "./entity/User"
 import { Role } from "./entity/Role"
+import { Funnel } from "./entity/Funnel"
+import { Campaign } from "./entity/Campaign"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -17,7 +19,9 @@ export const AppDataSource = new DataSource({
     entities: [
         Company,
         User,
-        Role
+        Role,
+        Funnel,
+        Campaign
     ],
     migrations: [],
     subscribers: [],

@@ -34,6 +34,8 @@ const registerCompany = asyncHandler(async (req: Request, res: Response) => {
 
 
 
+
+
 // @desc    Get Company by ID
 // @route   GET /api/company/:id
 // @access  Private

@@ -1,3 +1,4 @@
+import { IUser } from '../../interface/userInterface';
 import { apiSlice } from './ApiSlice';
 const USERS_URL = '/users';
 
@@ -22,8 +23,15 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
 
 
+    getAllUser: builder.query<IUser[],void>({
+      query: () => ({
+        url: `${USERS_URL}/`,
+        method: 'GET',
+      }),
+    }),
+
 
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = userApiSlice;
+export const { useRegisterMutation, useLoginMutation, useGetAllUserQuery } = userApiSlice;

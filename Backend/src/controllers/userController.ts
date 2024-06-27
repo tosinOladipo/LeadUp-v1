@@ -67,6 +67,21 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 });
 
 
+// @desc    Get All Users
+// @route   GET /api/users
+// @access  Private
+const getAllUsers = asyncHandler(async (req, res) => {
+
+    const users = await User.find()
+
+    if (users) {
+        res.json(users);
+    }
+
+});
+
+
+
 
 
 // @desc    Auth User & get token
@@ -125,5 +140,6 @@ const authUser = asyncHandler(async (req: Request, res: Response) => {
 
 export {
     registerUser,
-    authUser
+    authUser,
+    getAllUsers
 };

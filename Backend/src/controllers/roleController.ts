@@ -33,6 +33,20 @@ const addRole = asyncHandler(async (req: Request, res: Response) => {
 });
 
 
+// @desc    Get Roles
+// @route   GET /api/role
+// @access  Private
+const getRoles = asyncHandler(async (req, res) => {
+
+    const roles = await Role.find()
+
+    if (roles) {
+        res.json(roles);
+    }
+
+});
+
+
 
 // @desc    Get Role by ID
 // @route   GET /api/roles/:id
@@ -96,6 +110,7 @@ const deleteRoleByID = asyncHandler(async (req, res) => {
 
 export {
     addRole,
+    getRoles,
     getRoleByID,
     updateRole,
     deleteRoleByID
