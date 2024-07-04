@@ -9,6 +9,8 @@ import { notFound, errorHandler } from './middleware/errorMiddleware'
 import { companyRouter } from './routes/companyRoute'
 import { userRouter } from './routes/userRoute'
 import { roleRouter } from "./routes/roleRoute";
+import { funnelRouter } from "./routes/funnelRoute";
+import { leadRouter } from "./routes/leadRoute";
 
 
 const app = express()
@@ -33,6 +35,8 @@ app.get('/', (req, res) => res.send('Hello World'))
 app.use('/api/v1/company', companyRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/roles', roleRouter)
+app.use('/api/v1/funnels', funnelRouter)
+app.use('/api/v1/leads', leadRouter)
 
 
 

@@ -5,6 +5,7 @@ import { User } from "./entity/User"
 import { Role } from "./entity/Role"
 import { Funnel } from "./entity/Funnel"
 import { Campaign } from "./entity/Campaign"
+import { Lead } from "./entity/Lead"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
@@ -21,7 +22,8 @@ export const AppDataSource = new DataSource({
         User,
         Role,
         Funnel,
-        Campaign
+        Campaign,
+        Lead
     ],
     migrations: [],
     subscribers: [],

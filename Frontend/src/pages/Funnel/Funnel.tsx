@@ -1,9 +1,15 @@
+import AllFunnel from "../../components/Funnel/AllFunnel"
+import Layout from "../../components/Layouts/Layout"
 
 const Funnel = () => {
 
 
   return (
-    <div>Funnel</div>
+    <Layout>
+      <section className="flex flex-col">
+          <AllFunnel/>
+      </section>
+    </Layout>
   )
   
 }
