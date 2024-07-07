@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs"
 
 import { User } from "../entity/User";
 import generateToken from '../utils/generateToken';
+import generateString from "../utils/generateString";
 
 
 // @desc    Create a new User
@@ -13,6 +14,9 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
 
     const { firstName, lastName, email, phoneNumber, password, role} = req.body
+
+    const userId = generateString(5)
+
 
     // Validation
     if (!firstName || !lastName || !email || !phoneNumber || !password || !role) {
@@ -53,7 +57,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
 
     // Create User
-    const user = User.create({ firstName, lastName, phoneNumber, email, password, role})
+    const user = User.create({ firstName, lastName, phoneNumber, email, password, role, userId})
     if (user) {
         await user.save()
         res.status(201).json(user);
@@ -79,7 +83,6 @@ const getAllUsers = asyncHandler(async (req, res) => {
     }
 
 });
-
 
 
 
@@ -136,10 +139,24 @@ const authUser = asyncHandler(async (req: Request, res: Response) => {
 });
 
 
+// @desc    Logout User/ clear cookie
+// @route   POST /api/users/logout
+// @access  Public
+const logoutUser= (_, res: Response) => {
+    res.cookie('jwt', '', {
+      httpOnly: true,
+      expires: new Date(0),
+    });
+    res.status(200).json({ message: 'Logged out successfully' });
+  };
+  
+
+
 
 
 export {
     registerUser,
     authUser,
-    getAllUsers
+    getAllUsers,
+    logoutUser
 };

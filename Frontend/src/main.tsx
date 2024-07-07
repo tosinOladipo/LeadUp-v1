@@ -16,6 +16,8 @@ import Login from './pages/Auth/Login.tsx';
 import SignUpUser from './pages/Auth/SignUpUser.tsx';
 import Members from './pages/Members/Members.tsx';
 import Funnel from './pages/Funnel/Funnel.tsx';
+import Lead from './pages/Lead/Lead.tsx';
+import AllLeads from './pages/Lead/AllLeads.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +28,8 @@ const router = createBrowserRouter(
       <Route path='/auth' element={<Login/>} />
       <Route path='/members' element={<Members/>} />
       <Route path='/funnel' element={<Funnel/>} />
+      <Route path='/new-lead/:userId/:eventId' element={<Lead/>} />
+      <Route path='/leads' element={<AllLeads/>} />
     </Route>
   )
 );

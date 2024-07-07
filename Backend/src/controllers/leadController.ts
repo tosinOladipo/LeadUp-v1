@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler"
 import { Lead } from "../entity/Lead";
+import { User } from "../entity/User";
 
 
 // @desc    Create a new Lead
@@ -9,17 +10,17 @@ import { Lead } from "../entity/Lead";
 const registerLead = asyncHandler(async (req: Request, res: Response) => {
 
 
-    const { fullName, email, phoneNumber, ownerId, campaignId} = req.body
+    const { fullName, email, phoneNumber, ownerId, campaignId, leadType} = req.body
 
     // Validation
-    if (!fullName || !email || !phoneNumber || !ownerId || !campaignId) {
+    if (!fullName || !email || !phoneNumber || !ownerId || !campaignId || !leadType) {
         res.status(400)
         throw new Error("Fill in all required fields")
     }
 
 
     // Create Company
-    const lead = Lead.create({ fullName, email, phoneNumber, ownerId, campaignId})
+    const lead = Lead.create({ fullName, email, phoneNumber, ownerId, campaignId, managerId: ownerId, leadType})
     if (lead) {
         await lead.save()
         res.status(201).json(lead);
@@ -33,6 +34,63 @@ const registerLead = asyncHandler(async (req: Request, res: Response) => {
 });
 
 
+// @desc    Get Leads
+// @route   GET /api/v1/leads
+// @access  Private
+const getLeads = asyncHandler(async (req, res) => {
+
+    const leads = await Lead.find()
+
+    if (leads) {
+        res.json(leads);
+    }
+
+});
+
+
+// @desc    Get Lead by USERID
+// @route   GET /api/user/:id
+// @route   GET /api/lead/:id
+// @access  Private
+const getLeadByUserID = asyncHandler(async (req, res) => {
+    const userId = req.params.id;
+
+    const user = await User.findOne({
+        where: {
+            id: userId
+        }
+    })
+
+    if (user.role = "Admin") {
+        const leads = await Lead.find()
+        if (leads) {
+            res.json(leads);
+        }
+    }
+
+    if (user.role = "Digital") {
+        const lead = await Lead.findOne({
+            where: {
+                managerId: userId
+            }
+        })
+        if (lead) {
+            res.json(lead);
+        }
+    }
+
+    const lead = await Lead.findOne({
+        where: {
+            managerId: userId
+        }
+    })
+    if (lead) {
+        res.json(lead);
+    }
+
+
+
+});
 
 
 
@@ -103,6 +161,7 @@ const deleteLeadByID = asyncHandler(async (req, res) => {
 
 export {
     registerLead,
+    getLeads,
     getLeadByID,
     updateLeadProfile,
     deleteLeadByID

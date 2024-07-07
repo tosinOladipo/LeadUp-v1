@@ -29,6 +29,9 @@ export class Lead extends BaseEntity{
     @Column()
     managerId: string
 
+    @Column()
+    leadType: string
+
     @Column({
         default: "New Lead"
     })

@@ -7,6 +7,9 @@ export class User extends Person {
     @Column()
     role: string
 
+    @Column()
+    userId: string
+
     @CreateDateColumn()
     createdAt: Date
 
