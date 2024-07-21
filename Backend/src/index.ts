@@ -11,6 +11,7 @@ import { userRouter } from './routes/userRoute'
 import { roleRouter } from "./routes/roleRoute";
 import { funnelRouter } from "./routes/funnelRoute";
 import { leadRouter } from "./routes/leadRoute";
+import { campaignRouter } from "./routes/campaignRoute";
 
 
 const app = express()
@@ -37,6 +38,7 @@ app.use('/api/v1/users', userRouter)
 app.use('/api/v1/roles', roleRouter)
 app.use('/api/v1/funnels', funnelRouter)
 app.use('/api/v1/leads', leadRouter)
+app.use('/api/v1/campaigns', campaignRouter)
 
 
 

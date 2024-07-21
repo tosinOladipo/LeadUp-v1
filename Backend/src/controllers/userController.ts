@@ -15,7 +15,7 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 
     const { firstName, lastName, email, phoneNumber, password, role} = req.body
 
-    const userId = generateString(5)
+    const userId = generateString(5).trim()
 
 
     // Validation
@@ -76,7 +76,11 @@ const registerUser = asyncHandler(async (req: Request, res: Response) => {
 // @access  Private
 const getAllUsers = asyncHandler(async (req, res) => {
 
-    const users = await User.find()
+    const users = await User.find({
+        order: {
+            createdAt: -1
+          }
+    })
 
     if (users) {
         res.json(users);
@@ -126,7 +130,8 @@ const authUser = asyncHandler(async (req: Request, res: Response) => {
             email: user.email,
             phoneNumber: user.phoneNumber,
             profileImg: user.profileImg,
-            role: user.role
+            role: user.role,
+            userId: user.userId
         })
 
     } else {
@@ -152,11 +157,42 @@ const logoutUser= (_, res: Response) => {
   
 
 
+  // @desc    Update Role
+// @route   PUT /api/roles/:id
+// @access  Private
+const updateUser = asyncHandler(async (req, res) => {
+    const Id = req.params.id;
+
+    const { firstName, lastName, email, phoneNumber, role, userId} = req.body
+
+    const user = await User.findOne({
+        where: {
+            id: Id
+        }
+    })
+
+    if (user) {
+        user.firstName = firstName || user.firstName;
+        user.lastName = lastName || user.lastName;
+        user.email = email || user.email;
+        user.phoneNumber = phoneNumber || user.phoneNumber;
+        user.role = role || user.role;
+        user.userId = userId || user.userId;
+
+        const updatedUser = await user.save();
+
+    res.json(updatedUser);
+    }
+
+})
+
+
 
 
 export {
     registerUser,
     authUser,
     getAllUsers,
-    logoutUser
+    logoutUser,
+    updateUser
 };

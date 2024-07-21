@@ -37,7 +37,7 @@ const SignUpUserForm = () => {
     } = useForm<FormFields>({
         defaultValues: {
             email: companyInfo.companyEmail,
-            role: "super-admin"
+            role: "Admin"
         },
         resolver: zodResolver(schema)
     })

@@ -1,10 +1,13 @@
-import { useGetAllLeadsQuery } from "../../slice/ApiSlice/LeadApiSlice";
+import { useSelector } from "react-redux";
+import { useGetLeadsByUserIdQuery } from "../../slice/ApiSlice/LeadApiSlice";
 import LeadTableRow from "./LeadTableRow"
 
 
 const LeadTable = () => {
 
-    const { data, isLoading, isSuccess } = useGetAllLeadsQuery();
+    const { userInfo } = useSelector((state: any) => state.auth);
+
+    const { data, isLoading, isSuccess } = useGetLeadsByUserIdQuery(userInfo.userId);
 
   return (
     <div className="h-96 overflow-x-auto overflow-y-auto">
@@ -22,6 +25,7 @@ const LeadTable = () => {
                         <th>Owner</th>
                         <th>Lead Type</th>
                         <th>Lead Stage</th>
+                        <th>Last Updated</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -34,12 +38,14 @@ const LeadTable = () => {
                         {data?.map((lead: any) => (
                             <LeadTableRow
                             key={lead.id}
+                            id={lead.id}
                             fullName={lead.fullName}
                             phoneNumber={lead.phoneNumber}
                             email={lead.email}
                             ownerId={lead.ownerId}
                             leadType={lead.leadType}
                             leadStage={lead.leadStage}
+                            updatedAt={lead.updatedAt}
                         />
                         ))}
                     </>

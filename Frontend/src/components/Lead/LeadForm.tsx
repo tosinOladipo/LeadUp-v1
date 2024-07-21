@@ -11,9 +11,6 @@ const LeadForm = () => {
     const { userId } = useParams();
     const { eventId } = useParams();
 
-    let params = new URLSearchParams(location.search);
-
-    const bayo = params.get('name')
 
     const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
@@ -28,7 +25,6 @@ const LeadForm = () => {
     const submitHandler = async (e: any) => {
         e.preventDefault();
         try {
-            console.log(ownerId)
           await addLead({ fullName, email, phoneNumber, leadType, ownerId, campaignId }).unwrap();
           setIsAdded(true)
           setFullName('')

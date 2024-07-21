@@ -12,6 +12,7 @@ export const leadApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: data,
       }),
+      invalidatesTags: ['Lead']
     }),
 
     getAllLeads: builder.query<ILead[], void>({
@@ -19,21 +20,32 @@ export const leadApiSlice = apiSlice.injectEndpoints({
         url: `${LEAD_URL}/`,
         method: 'GET',
       }),
+      providesTags: ['Lead']
     }),
 
-    getLeadById: builder.query<ILead, string>({
+    getLeadById: builder.query<ILead, any>({
       query: (id) => ({
-        url: `${LEAD_URL}/${id}`,
+        url: `${LEAD_URL}/profile/${id}`,
         method: 'GET',
       }),
+      providesTags: ['Lead']
     }),
 
-    updateLead: builder.mutation<void, ILead>({
+    getLeadsByUserId: builder.query<ILead[], any>({
+      query: (userId) => ({
+        url: `${LEAD_URL}/user/${userId}`,
+        method: 'GET',
+      }),
+      providesTags: ['Lead']
+    }),
+
+    updateLead: builder.mutation<void, any>({
       query: ({ id, ...rest }) => ({
-        url: `${LEAD_URL}/${id}`,
+        url: `${LEAD_URL}/profile/${id}`,
         method: 'PUT',
         body: rest
       }),
+      invalidatesTags: ['Lead']
     }),
 
     deleteLead: builder.mutation<void, string>({
@@ -41,6 +53,7 @@ export const leadApiSlice = apiSlice.injectEndpoints({
         url: `${LEAD_URL}/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['Lead']
     }),
 
 
@@ -51,6 +64,7 @@ export const {
     useCreateLeadMutation,
     useGetAllLeadsQuery,
     useGetLeadByIdQuery,
+    useGetLeadsByUserIdQuery,
     useUpdateLeadMutation,
     useDeleteLeadMutation
 } = leadApiSlice;

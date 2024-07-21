@@ -17,6 +17,9 @@ export class Campaign extends BaseEntity{
     campaignOwner: string
 
     @Column()
+    campaignId: string
+
+    @Column()
     campaignURL: string
 
     @CreateDateColumn()

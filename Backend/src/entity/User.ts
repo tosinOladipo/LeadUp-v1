@@ -7,7 +7,9 @@ export class User extends Person {
     @Column()
     role: string
 
-    @Column()
+    @Column({
+        unique: true
+    })
     userId: string
 
     @CreateDateColumn()

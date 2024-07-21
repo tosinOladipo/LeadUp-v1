@@ -11,7 +11,7 @@ const SideNav = () => {
             <Nav navTitle="Home" navIcon= {<BiHomeAlt2 size={16}/>} navURL="/"/>
             <Nav navTitle="Members" navIcon= {<BiUser size={16}/>} navURL="/members"/>
             <Nav navTitle="Funnels" navIcon= {<PiFunnelBold size={16}/>} navURL="/funnel"/>
-            <Nav navTitle="Campaigns" navIcon= {<BiPaperPlane size={16}/>} navURL="/home"/>
+            <Nav navTitle="Campaigns" navIcon= {<BiPaperPlane size={16}/>} navURL="/campaign"/>
             <Nav navTitle="Leads" navIcon= {<BiListPlus size={20}/>} navURL="/leads"/>
         </ul>
     )
